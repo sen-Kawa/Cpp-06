@@ -1,7 +1,4 @@
 #include "../header/ScalarConverter.class.hpp"
-#include <cctype>
-#include <cstdlib>
-#include <limits.h>
 
 void ScalarConverter::toChar(std::string toConvert)
 {
@@ -37,7 +34,7 @@ int ScalarConverter::parseString(std::string toConvert)
 	return (0);
 }
 
-int ScalarConverter::convert(void)
+int ScalarConverter::convert(std::string toConvert)
 {
 	if (parseString(toConvert) == -1)
 		return (-1);
@@ -46,11 +43,6 @@ int ScalarConverter::convert(void)
 }
 
 ScalarConverter::ScalarConverter(void)
-{
-	return ;
-}
-
-ScalarConverter::ScalarConverter(std::string toConvert) : toConvert(toConvert)
 {
 	return ;
 }
