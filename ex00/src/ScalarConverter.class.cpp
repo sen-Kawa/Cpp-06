@@ -1,5 +1,6 @@
 #include "../header/ScalarConverter.class.hpp"
 #include <cstdlib>
+#include <iomanip>
 
 int	ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
@@ -7,25 +8,34 @@ int		ScalarConverter::theInt = -1;
 float	ScalarConverter::theFloat = 0.0f;
 double	ScalarConverter::theDouble = 0.0;
 
+void ScalarConverter::printConversion()
+{
+	std::cout << "Char: '" << theChar << "'" << std::endl;
+	std::cout << "Int: " << theInt << std::endl;
+	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
+	return ;
+}
 
 void ScalarConverter::printPseudos()
 {
 	std::cout << "Char: " << "impossible" << std::endl;
 	std::cout << "Int: " << "impossible" << std::endl;
-	std::cout << "Float: " << ScalarConverter::theFloat << "f" << std::endl;
-	std::cout << "Double: " << ScalarConverter::theDouble << std::endl;
+	std::cout << "Float: " << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
 	return ;
 }
 
 int ScalarConverter::convert(std::string toConvert)
 {
-	int	parse = parseString(toConvert);
-
-	if (parse == -1)
+	if (parseString(toConvert)== -1)
 		return (-1);
-	std::cout << "type" << ScalarConverter::type << std::endl;
 	switch(type)
 	{
+		case 0:
+			fromChar();
+			break ;
+
 		case 4:
 			printPseudos();
 			break ;
@@ -47,15 +57,12 @@ int ScalarConverter::parseString(std::string toConvert)
 	return (0);
 }
 
-
-void ScalarConverter::toChar(std::string toConvert)
+void ScalarConverter::fromChar()
 {
-	int	i = atoi(toConvert.c_str());
-
-	if (isprint(i))
-		std::cout << "Char: " << static_cast<char>(i) << std::endl;
-	else
-		std::cout << "Char: " << "Non displayable" << std::endl;
+	theInt =  static_cast<int>(theChar);
+	theFloat =  static_cast<float>(theChar);
+	theDouble =  static_cast<double>(theChar);
+	printConversion();
 	return ;
 }
 
@@ -74,12 +81,12 @@ void ScalarConverter::single(std::string toConvert)
 {
 	if (isdigit(*toConvert.c_str()))
 	{
-		ScalarConverter::type = TYPE_INT;
+		type = TYPE_INT;
 		theInt = atoi(toConvert.c_str());
 	}
 	else if (isprint(*toConvert.c_str()))
 	{
-		ScalarConverter::type = TYPE_CHAR;
+		type = TYPE_CHAR;
 		theChar = toConvert[0];
 	}
 	return ;
@@ -102,7 +109,7 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 	{
 		theFloat = strtof(pseudoFloat[i].c_str(), NULL);
 		theDouble = strtod(pseudoDouble[i].c_str(), NULL);
-		ScalarConverter::type = TYPE_PSEUDOS;
+		type = TYPE_PSEUDOS;
 	}
 	return (0);
 }

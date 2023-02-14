@@ -7,6 +7,7 @@
 #include <limits.h>
 #include <ostream>
 #include <stdlib.h>
+#include <iomanip>
 
 #define TYPE_CHAR 0
 #define TYPE_INT 1
@@ -26,12 +27,17 @@ class ScalarConverter
 
 		static int		parseString(std::string toConvert);
 		static int		pseudoLiterals(std::string toConvert);
-		static void		printPseudos(void);
 		static void		single(std::string toConvert);
+
+		static void		printPseudos(void);
+		static void		printConversion(void);
+
 		static void		toChar(std::string toConvert);	
 		static void		toFloat(std::string toConvert);	
 		static void		toInt(std::string toConvert);	
 		static void		toDouble(std::string toConvert);	
+
+		static void		fromChar(void);
 
 		ScalarConverter(void);
 		ScalarConverter(ScalarConverter const &src);
