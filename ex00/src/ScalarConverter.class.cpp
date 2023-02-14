@@ -15,7 +15,10 @@ int ScalarConverter::convert(std::string toConvert)
 	if (parse == -1)
 		return (-1);
 //	if (parse == 1)
-		// pseudo yes
+
+
+// pseudo yes
+	std::cout << ScalarConverter::type << std::endl;
 	return (0);
 }
 
@@ -33,6 +36,7 @@ int ScalarConverter::parseString(std::string toConvert)
 		if (pseudoLiterals(toConvert) == 1)
 			return (1);
 	}
+	std::cout << "length" << toConvert.length() << std::endl;
 	return (0);
 }
 
@@ -61,20 +65,15 @@ void ScalarConverter::toInt(std::string toConvert)
 
 void ScalarConverter::single(std::string toConvert)
 {
-	int	i = atoi(toConvert.c_str());
-
-	if (isprint(i))
+	if (isdigit(*toConvert.c_str()))
 	{
-		if (isdigit(i))
-		{
-			ScalarConverter::type = TYPE_INT;
-			theInt = i;
-		}
-		else
-		{
-			ScalarConverter::type = TYPE_CHAR;
-			theChar = toConvert[0];
-		}
+		ScalarConverter::type = TYPE_INT;
+		theInt = atoi(toConvert.c_str());
+	}
+	else if (isprint(*toConvert.c_str()))
+	{
+		ScalarConverter::type = TYPE_CHAR;
+		theChar = toConvert[0];
 	}
 	return ;
 }

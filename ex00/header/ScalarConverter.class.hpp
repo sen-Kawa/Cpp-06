@@ -5,6 +5,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <limits.h>
+#include <ostream>
 #include <stdlib.h>
 
 #define TYPE_CHAR "char"
@@ -42,4 +43,3 @@ class ScalarConverter
 };
 
 #endif
-
