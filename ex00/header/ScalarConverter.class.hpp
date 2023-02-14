@@ -16,9 +16,13 @@ class ScalarConverter
 	private:
 
 		static int		type;
+		static char		theChar;
+		static int		theInt;
+		static float	theFloat;
+		static double	theDouble;
 
 		static int		parseString(std::string toConvert);
-		static void		pseudoLiterals(std::string toConvert);
+		static int		pseudoLiterals(std::string toConvert);
 		static void		single(std::string toConvert);
 		static void		toChar(std::string toConvert);	
 		static void		toFloat(std::string toConvert);	

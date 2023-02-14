@@ -1,5 +1,6 @@
 #include "../header/ScalarConverter.class.hpp"
 
+int	ScalarConverter::type = -1;
 
 int ScalarConverter::convert(std::string toConvert)
 {
@@ -20,7 +21,8 @@ int ScalarConverter::parseString(std::string toConvert)
 		single(toConvert);
 	else
 	{
-		pseudoLiterals(toConvert);
+		if (pseudoLiterals(toConvert) == 1)
+			// write imposibble in char and int;
 	}
 	return (0);
 }
@@ -55,20 +57,35 @@ void ScalarConverter::single(std::string toConvert)
 	if (isprint(i))
 	{
 		if (isdigit(i))
-			type = TYPE_INT;
+			ScalarConverter::type = TYPE_INT;
 		else
-			type = TYPE_CHAR;
+			ScalarConverter::type = TYPE_CHAR;
 	}
 	return ;
 }
 
-void ScalarConverter::pseudoLiterals(std::string toConvert)
+int ScalarConverter::pseudoLiterals(std::string toConvert)
 {
-	//compare with pseudo literals
-	//make array with possibilities?
-	//
+	std::string	pseudoFloat[3] = {"-inff", "+inff", "nanf"};
+	std::string	pseudoDouble[3] = {"-inf", "+inf", "nan"};
+	int i;
 
-	return ;
+	for (i = 0; i < 3; i++)	
+	{
+		if (toConvert.compare(pseudoFloat[i]) == 0)
+		{
+			ScalarConverter::type = TYPE_FLOAT;
+			break ;
+		}
+		if (toConvert.compare(pseudoDouble[i]) == 0)
+		{
+			ScalarConverter::type = TYPE_DOUBLE;
+			break ;
+		}
+	}
+	if (i < 3)
+		return (1);
+	return (0);
 }
 
 ScalarConverter::ScalarConverter(void)
