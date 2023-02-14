@@ -1,12 +1,21 @@
 #include "../header/ScalarConverter.class.hpp"
 #include <cstdlib>
 
-std::string	ScalarConverter::type = "none";
+int	ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
 int		ScalarConverter::theInt = -1;
 float	ScalarConverter::theFloat = 0.0f;
 double	ScalarConverter::theDouble = 0.0;
 
+
+void ScalarConverter::printPseudos()
+{
+	std::cout << "Char: " << "impossible" << std::endl;
+	std::cout << "Int: " << "impossible" << std::endl;
+	std::cout << "Float: " << ScalarConverter::theFloat << "f" << std::endl;
+	std::cout << "Double: " << ScalarConverter::theDouble << std::endl;
+	return ;
+}
 
 int ScalarConverter::convert(std::string toConvert)
 {
@@ -14,11 +23,13 @@ int ScalarConverter::convert(std::string toConvert)
 
 	if (parse == -1)
 		return (-1);
-//	if (parse == 1)
-
-
-// pseudo yes
-	std::cout << ScalarConverter::type << std::endl;
+	std::cout << "type" << ScalarConverter::type << std::endl;
+	switch(type)
+	{
+		case 4:
+			printPseudos();
+			break ;
+	}
 	return (0);
 }
 
@@ -32,11 +43,7 @@ int ScalarConverter::parseString(std::string toConvert)
 	else if (toConvert.length() == 1)
 		single(toConvert);
 	else
-	{
-		if (pseudoLiterals(toConvert) == 1)
-			return (1);
-	}
-	std::cout << "length" << toConvert.length() << std::endl;
+		pseudoLiterals(toConvert);
 	return (0);
 }
 
@@ -87,21 +94,15 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 	for (i = 0; i < 3; i++)	
 	{
 		if (toConvert.compare(pseudoFloat[i]) == 0)
-		{
-			ScalarConverter::type = TYPE_FLOAT;
 			break ;
-		}
 		if (toConvert.compare(pseudoDouble[i]) == 0)
-		{
-			ScalarConverter::type = TYPE_DOUBLE;
 			break ;
-		}
 	}
 	if (i < 3)
 	{
 		theFloat = strtof(pseudoFloat[i].c_str(), NULL);
 		theDouble = strtod(pseudoDouble[i].c_str(), NULL);
-		return (1);
+		ScalarConverter::type = TYPE_PSEUDOS;
 	}
 	return (0);
 }
