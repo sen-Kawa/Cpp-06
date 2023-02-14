@@ -6,6 +6,11 @@
 #include <cstdlib>
 #include <limits.h>
 
+#define TYPE_CHAR 0
+#define TYPE_INT 1
+#define TYPE_FLOAT 2
+#define TYPE_DOUBLE 3
+
 class ScalarConverter
 {
 	private:

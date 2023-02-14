@@ -13,7 +13,7 @@ void ScalarConverter::toChar(std::string toConvert)
 
 void ScalarConverter::toInt(std::string toConvert)
 {
-	long	i = atol(toConvert.c_str());
+	int	i = atoi(toConvert.c_str());
 
 	if (i < INT_MAX && i > INT_MIN)
 		std::cout << "Int: " << static_cast<int>(i) << std::endl;
@@ -24,13 +24,25 @@ void ScalarConverter::toInt(std::string toConvert)
 
 int ScalarConverter::parseString(std::string toConvert)
 {
+	int	type;
+
 	if (toConvert.empty() == true)
 	{
 		std::cout << "Invalid empty argument." << std::endl;
 		return (-1);
 	}
-	toChar(toConvert);
-	toInt(toConvert);
+	else if (toConvert.length() == 1)
+	{
+		int	i = atoi(toConvert.c_str());
+		if (isprint(i))
+		{
+			if (isdigit(i))
+				type = TYPE_INT;
+			else
+				type = TYPE_CHAR;
+		}
+		// is it a digit or a char?
+	}
 	return (0);
 }
 
