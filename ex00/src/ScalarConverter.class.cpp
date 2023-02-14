@@ -14,7 +14,7 @@ int ScalarConverter::parseString(std::string toConvert)
 {
 	if (toConvert.empty() == true)
 	{
-		std::cout << "Invalid empty argument." << std::endl;
+		std::cerr << "Invalid empty argument." << std::endl;
 		return (-1);
 	}
 	else if (toConvert.length() == 1)

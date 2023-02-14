@@ -4,7 +4,7 @@ int arg_check(int argc)
 {
 	if (argc != 2)
 	{
-		std::cout << "Wrong amount of arguments" << std::endl;
+		std::cerr << "Wrong amount of arguments" << std::endl;
 		return (-1);
 	}
 
