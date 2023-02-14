@@ -1,13 +1,29 @@
 #include "../header/ScalarConverter.class.hpp"
 
-void ScalarConverter::convert(void)
+int ScalarConverter::parseString(std::string toConvert)
 {
-	if (parse_string(toConvert) == -1)
+	if (toConvert.empty() == true)
+	{
+		std::cout << "Invalid empty argument." << std::endl;
+		return (-1);
+	}
+	return (0);
+}
 
-	return ;
+int ScalarConverter::convert(void)
+{
+	if (parseString(toConvert) == -1)
+		return (-1);
+
+	return (0);
 }
 
 ScalarConverter::ScalarConverter(void)
+{
+	return ;
+}
+
+ScalarConverter::ScalarConverter(std::string toConvert) : toConvert(toConvert)
 {
 	return ;
 }

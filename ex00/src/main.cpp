@@ -1,7 +1,6 @@
-//#include "../header/ScalarConverter.class.hpp"
-#include <iostream>
+#include "../header/ScalarConverter.class.hpp"
 
-int arg_check(int argc, char **argv)
+int arg_check(int argc)
 {
 	if (argc != 2)
 	{
@@ -12,24 +11,15 @@ int arg_check(int argc, char **argv)
 	return (1);
 }
 
-int parse_string(std::string input)
-{
-	if (input.empty() == true)
-	{
-		std::cout << "Invalid empty argument" << std::endl;
-		return (-1);
-	}
-	return (0);
-}
-
 int main(int argc, char **argv)
 {
-	if (arg_check(argc, argv) == -1)
+	if (arg_check(argc) == -1)
 		return (-1);
-	std::string	input = argv[1];
-	if (parse_string(input) == -1)
+
+	ScalarConverter	conversion(argv[1]);
+	if (conversion.convert() == -1)
 		return (-1);
-	// parse string
+
 	return (0);
 }
 

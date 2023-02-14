@@ -9,11 +9,11 @@ class ScalarConverter
 
 		std::string	toConvert;
 	
-		int	parse_string(std::string toConvert);
+		int	parseString(std::string toConvert);
 
 	public:
 
-		void	convert(void);
+		int	convert(void);
 
 		ScalarConverter(void);
 		ScalarConverter(std::string toConvert);
