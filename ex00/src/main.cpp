@@ -16,9 +16,7 @@ int main(int argc, char **argv)
 	if (arg_check(argc) == -1)
 		return (-1);
 
-	ScalarConverter	conversion(argv[1]);
-	if (conversion.convert() == -1)
-		return (-1);
+	ScalarConverter::convert(argv[1]);
 
 	return (0);
 }
