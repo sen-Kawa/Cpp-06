@@ -5,21 +5,22 @@
 #include <cctype>
 #include <cstdlib>
 #include <limits.h>
+#include <stdlib.h>
 
-#define TYPE_CHAR 0
-#define TYPE_INT 1
-#define TYPE_FLOAT 2
-#define TYPE_DOUBLE 3
+#define TYPE_CHAR "char"
+#define TYPE_INT "int"
+#define TYPE_FLOAT "float"
+#define TYPE_DOUBLE "double"
 
 class ScalarConverter
 {
 	private:
 
-		static int		type;
-		static char		theChar;
-		static int		theInt;
-		static float	theFloat;
-		static double	theDouble;
+		static std::string	type;
+		static char			theChar;
+		static int			theInt;
+		static float		theFloat;
+		static double		theDouble;
 
 		static int		parseString(std::string toConvert);
 		static int		pseudoLiterals(std::string toConvert);

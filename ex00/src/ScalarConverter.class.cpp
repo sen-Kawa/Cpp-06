@@ -1,12 +1,21 @@
 #include "../header/ScalarConverter.class.hpp"
+#include <cstdlib>
 
-int	ScalarConverter::type = -1;
+std::string	ScalarConverter::type = "none";
+char	ScalarConverter::theChar = 'c';
+int		ScalarConverter::theInt = -1;
+float	ScalarConverter::theFloat = 0.0f;
+double	ScalarConverter::theDouble = 0.0;
+
 
 int ScalarConverter::convert(std::string toConvert)
 {
-	if (parseString(toConvert) == -1)
-		return (-1);
+	int	parse = parseString(toConvert);
 
+	if (parse == -1)
+		return (-1);
+//	if (parse == 1)
+		// pseudo yes
 	return (0);
 }
 
@@ -22,7 +31,7 @@ int ScalarConverter::parseString(std::string toConvert)
 	else
 	{
 		if (pseudoLiterals(toConvert) == 1)
-			// write imposibble in char and int;
+			return (1);
 	}
 	return (0);
 }
@@ -57,9 +66,15 @@ void ScalarConverter::single(std::string toConvert)
 	if (isprint(i))
 	{
 		if (isdigit(i))
+		{
 			ScalarConverter::type = TYPE_INT;
+			theInt = i;
+		}
 		else
+		{
 			ScalarConverter::type = TYPE_CHAR;
+			theChar = toConvert[0];
+		}
 	}
 	return ;
 }
@@ -84,7 +99,11 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 		}
 	}
 	if (i < 3)
+	{
+		theFloat = strtof(pseudoFloat[i].c_str(), NULL);
+		theDouble = strtod(pseudoDouble[i].c_str(), NULL);
 		return (1);
+	}
 	return (0);
 }
 
