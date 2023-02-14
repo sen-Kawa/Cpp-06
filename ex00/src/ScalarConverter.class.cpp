@@ -1,16 +1,27 @@
 #include "../header/ScalarConverter.class.hpp"
 #include <cctype>
 #include <cstdlib>
+#include <limits.h>
 
 void ScalarConverter::toChar(std::string toConvert)
 {
 	int	i = atoi(toConvert.c_str());
 
-	std::cout << i << std::endl;
 	if (isprint(i))
 		std::cout << "Char: " << static_cast<char>(i) << std::endl;
 	else
 		std::cout << "Char: " << "Non displayable" << std::endl;
+	return ;
+}
+
+void ScalarConverter::toInt(std::string toConvert)
+{
+	long	i = atol(toConvert.c_str());
+
+	if (i < INT_MAX && i > INT_MIN)
+		std::cout << "Int: " << static_cast<int>(i) << std::endl;
+	else
+		std::cout << "Int: " << "Non displayable" << std::endl;
 	return ;
 }
 
@@ -22,6 +33,7 @@ int ScalarConverter::parseString(std::string toConvert)
 		return (-1);
 	}
 	toChar(toConvert);
+	toInt(toConvert);
 	return (0);
 }
 
