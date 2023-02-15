@@ -1,4 +1,4 @@
-NAME = convert
+NAME = conversion
 
 CC = c++
 

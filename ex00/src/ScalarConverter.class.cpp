@@ -1,4 +1,5 @@
 #include "../header/ScalarConverter.class.hpp"
+#include <cerrno>
 
 int	ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
@@ -46,6 +47,13 @@ void ScalarConverter::convert(std::string toConvert)
 	return ;
 }
 
+int ScalarConverter::checkDigit(double temp, std::string toConvert)
+{
+	if (temp / 10 == 0 && toConvert.find('.') == std::string::npos)
+		return (1);
+	return (0);
+}
+
 int ScalarConverter::parseString(std::string toConvert)
 {
 	if (toConvert.empty() == true)
@@ -55,13 +63,13 @@ int ScalarConverter::parseString(std::string toConvert)
 	else if (pseudoLiterals(toConvert) == TYPE_PSEUDOS)
 		return (type);
 
-	long double	temp = strtold(toConvert.c_str(), NULL);
+	double	temp = strtold(toConvert.c_str(), NULL);
 
-	if (temp == 0)
+	if (checkDigit(temp, toConvert) == 1 || errno == ERANGE || errno == EDOM || errno == EILSEQ)
 		return (-1);
-	if ((toConvert.find('.') == std::string::npos) && checkInt(temp) == TYPE_INT)
+	if (checkInt(temp, toConvert) == TYPE_INT)
 		return (type);
-	else if ((toConvert.find('.') != std::string::npos) && (toConvert.find('f') != std::string::npos) && checkFloat(temp) == TYPE_FLOAT)
+	else if (checkFloat(temp, toConvert) == TYPE_FLOAT)
 		return (type);
 	else if (checkDouble(temp) == TYPE_DOUBLE)
 		return (type);
@@ -158,8 +166,10 @@ void ScalarConverter::fromDouble()
 	return ;
 }
 
-int ScalarConverter::checkInt(long double temp)
+int ScalarConverter::checkInt(double temp, std::string toConvert)
 {
+	if (toConvert.find('.') != std::string::npos)
+		return (-1);
 	if (temp > INT_MAX || temp < INT_MIN)
 		return (-1);
 	type = TYPE_INT;
@@ -167,8 +177,10 @@ int ScalarConverter::checkInt(long double temp)
 	return (type);
 }
 
-int ScalarConverter::checkFloat(long double temp)
+int ScalarConverter::checkFloat(double temp, std::string toConvert)
 {
+	if ((toConvert.find('.') == std::string::npos) && (toConvert.find('f') == std::string::npos))
+		return (-1);
 	if (abs(temp) > FLT_MAX)
 		return (-1);
 	type = TYPE_FLOAT;
@@ -176,10 +188,8 @@ int ScalarConverter::checkFloat(long double temp)
 	return (type);
 }
 
-int ScalarConverter::checkDouble(long double temp)
+int ScalarConverter::checkDouble(double temp)
 {
-	if (abs(temp) > DBL_MAX)
-		return (-1);
 	type = TYPE_DOUBLE;
 	theDouble = static_cast<double>(temp);
 	return (type);

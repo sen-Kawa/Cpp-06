@@ -3,6 +3,7 @@
 
 #include <iostream>
 #include <cerrno>
+#include <cstring>
 #include <string>
 #include <bitset>
 #include <cctype>
@@ -29,12 +30,13 @@ class ScalarConverter
 		static float	theFloat;
 		static double	theDouble;
 
+		static int		checkDigit(double temp, std::string toConvert);
 		static int		parseString(std::string toConvert);
 		static int		pseudoLiterals(std::string toConvert);
 		static int		single(std::string toConvert);
-		static int		checkInt(long double temp);	
-		static int		checkFloat(long double temp);	
-		static int		checkDouble(long double temp);	
+		static int		checkInt(double temp, std::string toConvert);	
+		static int		checkFloat(double temp, std::string toConvert);
+		static int		checkDouble(double temp);	
 
 		static void		printPseudos(void);
 
