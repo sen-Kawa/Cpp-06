@@ -41,6 +41,10 @@ int ScalarConverter::convert(std::string toConvert)
 			fromInt();
 			break ;
 
+		case 2:
+			fromFloat();
+			break ;
+
 		case 4:
 			printPseudos();
 			break ;
@@ -50,7 +54,7 @@ int ScalarConverter::convert(std::string toConvert)
 
 int ScalarConverter::parseString(std::string toConvert)
 {
-	double	temp = strtod(toConvert.c_str(), NULL);
+	long double	temp = strtod(toConvert.c_str(), NULL);
 
 	if (toConvert.empty() == true)
 	{
@@ -63,6 +67,8 @@ int ScalarConverter::parseString(std::string toConvert)
 		return (type);
 	else if ((toConvert.find('.') == std::string::npos) && checkInt(temp) == TYPE_INT)
 		return (type);
+	else if ((toConvert.find('.') != std::string::npos) && (toConvert.find('f') != std::string::npos) && checkFloat(temp) == TYPE_FLOAT)
+		return (type);
 
 	return (0);
 }
@@ -72,27 +78,73 @@ void ScalarConverter::fromChar()
 	theInt =  static_cast<int>(theChar);
 	theFloat =  static_cast<float>(theChar);
 	theDouble =  static_cast<double>(theChar);
-	printConversion();
+
+	std::cout << "Char: '" << theChar << "'" << std::endl;
+	std::cout << "Int: " << theInt << std::endl;
+	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
 	return ;
 }
 
 void ScalarConverter::fromInt()
 {
-	theChar =  static_cast<char>(theInt);
-	if (theInt > 126 || theInt < 32)
-		theChar =  0;
+	if (theInt <= 126 && theInt >= 32)
+	{
+		theChar =  static_cast<char>(theInt);
+		std::cout << "Char: '" << theChar << "'" << std::endl;
+	}
+	else if ((theInt >= 0 && theInt <= 31) || theInt == 127)
+		std::cout << "Char: Non displayable" << std::endl;
+	else
+		std::cout << "Char: impossible" << std::endl;
+
 	theFloat =  static_cast<float>(theInt);
 	theDouble =  static_cast<double>(theInt);
-	printConversion();
+
+	std::cout << "Int: " << theInt << std::endl;
+	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
+
 	return ;
 }
 
-int ScalarConverter::checkInt(double temp)
+void ScalarConverter::fromFloat()
+{
+	if (theFloat <= 126 && theFloat >= 32)
+	{
+		theChar =  static_cast<char>(theFloat);
+		std::cout << "Char: '" << theChar << "'" << std::endl;
+	}
+	else if ((theFloat >= 0 && theFloat <= 31) || theFloat == 127)
+		std::cout << "Char: Non displayable" << std::endl;
+	else
+		std::cout << "Char: impossible" << std::endl;
+	if (theFloat > 2147483647.0 || theFloat < -2147483648.0)
+		std::cout << "Int: impossible" << std::endl;
+	else
+	{
+		theInt =  static_cast<int>(theFloat);
+		std::cout << "Int: " << theInt << std::endl;
+	}
+	theDouble =  static_cast<double>(theFloat);
+	return ;
+}
+
+int ScalarConverter::checkInt(long double temp)
 {
 	if (temp > INT_MAX || temp < INT_MIN)
 		return (-1);
 	type = TYPE_INT;
 	theInt = static_cast<int>(temp);
+	return (type);
+}
+
+int ScalarConverter::checkFloat(long double temp)
+{
+	if (abs(temp) > FLT_MAX)
+		return (-1);
+	type = TYPE_FLOAT;
+	theFloat = static_cast<int>(temp);
 	return (type);
 }
 

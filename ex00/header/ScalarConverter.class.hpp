@@ -7,6 +7,7 @@
 #include <cctype>
 #include <cstdlib>
 #include <limits.h>
+#include <cfloat>
 #include <ostream>
 #include <stdlib.h>
 #include <iomanip>
@@ -30,7 +31,8 @@ class ScalarConverter
 		static int		parseString(std::string toConvert);
 		static int		pseudoLiterals(std::string toConvert);
 		static int		single(std::string toConvert);
-		static int		checkInt(double temp);	
+		static int		checkInt(long double temp);	
+		static int		checkFloat(long double temp);	
 
 		static void		printPseudos(void);
 		static void		printConversion(void);
@@ -42,6 +44,7 @@ class ScalarConverter
 
 		static void		fromChar(void);
 		static void		fromInt(void);
+		static void		fromFloat(void);
 
 		ScalarConverter(void);
 		ScalarConverter(ScalarConverter const &src);
