@@ -8,7 +8,10 @@ double	ScalarConverter::theDouble = 0.0;
 
 void ScalarConverter::printConversion()
 {
-	std::cout << "Char: '" << theChar << "'" << std::endl;
+	if (theChar == 0)
+		std::cout << "Char: Non displayable" << std::endl;
+	else
+		std::cout << "Char: '" << theChar << "'" << std::endl;
 	std::cout << "Int: " << theInt << std::endl;
 	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
 	std::cout << "Double: " << theDouble << std::endl;
@@ -76,7 +79,9 @@ void ScalarConverter::fromChar()
 
 void ScalarConverter::fromInt()
 {
-	theChar =  static_cast<int>(theInt);
+	theChar =  static_cast<char>(theInt);
+	if (theInt > 126 || theInt < 32)
+		theChar =  0;
 	theFloat =  static_cast<float>(theInt);
 	theDouble =  static_cast<double>(theInt);
 	printConversion();
@@ -127,7 +132,7 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 		theFloat = strtof(pseudoFloat[i].c_str(), NULL);
 		theDouble = strtod(pseudoDouble[i].c_str(), NULL);
 		type = TYPE_PSEUDOS;
-		return (1);
+		return (TYPE_PSEUDOS);
 	}
 	return (0);
 }
