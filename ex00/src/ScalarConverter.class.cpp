@@ -1,5 +1,6 @@
 #include "../header/ScalarConverter.class.hpp"
 #include <cerrno>
+#include <cmath>
 
 int	ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
@@ -63,8 +64,10 @@ int ScalarConverter::parseString(std::string toConvert)
 	else if (pseudoLiterals(toConvert) == TYPE_PSEUDOS)
 		return (type);
 
-	double	temp = strtold(toConvert.c_str(), NULL);
+	double	temp = strtod(toConvert.c_str(), NULL);
 
+	if (temp == HUGE_VALL || temp == -HUGE_VALL)
+		return (-1);
 	if (checkDigit(temp, toConvert) == 1 || errno == ERANGE || errno == EDOM || errno == EILSEQ)
 		return (-1);
 	if (checkInt(temp, toConvert) == TYPE_INT)
