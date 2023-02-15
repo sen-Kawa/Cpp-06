@@ -71,7 +71,7 @@ int ScalarConverter::parseString(std::string toConvert)
 		return (type);
 	else if (checkFloat(temp, toConvert) == TYPE_FLOAT)
 		return (type);
-	else if (checkDouble(temp) == TYPE_DOUBLE)
+	else if (checkDouble(temp, toConvert) == TYPE_DOUBLE)
 		return (type);
 	return (0);
 }
@@ -181,6 +181,17 @@ int ScalarConverter::checkFloat(double temp, std::string toConvert)
 {
 	if ((toConvert.find('.') == std::string::npos) && (toConvert.find('f') == std::string::npos))
 		return (-1);
+
+	int	i = 0, j = 0;
+
+	while (toConvert[i] != 0)
+	{
+		if (toConvert[i] == 'f')
+			j++;
+		i++;
+	}
+	if (j > 1 || toConvert[i - 1] != 'f')
+		return (-1);
 	if (abs(temp) > FLT_MAX)
 		return (-1);
 	type = TYPE_FLOAT;
@@ -188,8 +199,10 @@ int ScalarConverter::checkFloat(double temp, std::string toConvert)
 	return (type);
 }
 
-int ScalarConverter::checkDouble(double temp)
+int ScalarConverter::checkDouble(double temp, std::string toConvert)
 {
+	if (toConvert.find('f') != std::string::npos)
+		return (1);
 	type = TYPE_DOUBLE;
 	theDouble = static_cast<double>(temp);
 	return (type);

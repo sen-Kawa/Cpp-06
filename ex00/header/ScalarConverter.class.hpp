@@ -34,9 +34,10 @@ class ScalarConverter
 		static int		parseString(std::string toConvert);
 		static int		pseudoLiterals(std::string toConvert);
 		static int		single(std::string toConvert);
+
 		static int		checkInt(double temp, std::string toConvert);	
 		static int		checkFloat(double temp, std::string toConvert);
-		static int		checkDouble(double temp);	
+		static int		checkDouble(double temp, std::string toConvert);
 
 		static void		printPseudos(void);
 
