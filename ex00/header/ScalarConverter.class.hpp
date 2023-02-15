@@ -33,18 +33,14 @@ class ScalarConverter
 		static int		single(std::string toConvert);
 		static int		checkInt(long double temp);	
 		static int		checkFloat(long double temp);	
+		static int		checkDouble(long double temp);	
 
 		static void		printPseudos(void);
-		static void		printConversion(void);
-
-		static void		toChar(std::string toConvert);	
-		static void		toFloat(std::string toConvert);	
-		static void		toInt(std::string toConvert);	
-		static void		toDouble(std::string toConvert);	
 
 		static void		fromChar(void);
 		static void		fromInt(void);
 		static void		fromFloat(void);
+		static void		fromDouble(void);
 
 		ScalarConverter(void);
 		ScalarConverter(ScalarConverter const &src);

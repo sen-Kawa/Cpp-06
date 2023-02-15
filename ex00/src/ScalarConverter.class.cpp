@@ -6,18 +6,6 @@ int		ScalarConverter::theInt = -1;
 float	ScalarConverter::theFloat = 0.0f;
 double	ScalarConverter::theDouble = 0.0;
 
-void ScalarConverter::printConversion()
-{
-	if (theChar != 0)
-		std::cout << "Char: Non displayable" << std::endl;
-	else
-		std::cout << "Char: '" << theChar << "'" << std::endl;
-	std::cout << "Int: " << theInt << std::endl;
-	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
-	std::cout << "Double: " << theDouble << std::endl;
-	return ;
-}
-
 void ScalarConverter::printPseudos()
 {
 	std::cout << "Char: " << "impossible" << std::endl;
@@ -45,9 +33,16 @@ int ScalarConverter::convert(std::string toConvert)
 			fromFloat();
 			break ;
 
+		case 3:
+			fromDouble();
+			break ;
+
 		case 4:
 			printPseudos();
 			break ;
+
+		default:
+			std::cout << "Invalid" << std::endl;
 	}
 	return (0);
 }
@@ -69,7 +64,8 @@ int ScalarConverter::parseString(std::string toConvert)
 		return (type);
 	else if ((toConvert.find('.') != std::string::npos) && (toConvert.find('f') != std::string::npos) && checkFloat(temp) == TYPE_FLOAT)
 		return (type);
-
+	else if (checkDouble(temp) == TYPE_DOUBLE)
+		return (type);
 	return (0);
 }
 
@@ -127,6 +123,40 @@ void ScalarConverter::fromFloat()
 		std::cout << "Int: " << theInt << std::endl;
 	}
 	theDouble =  static_cast<double>(theFloat);
+
+	std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
+	return ;
+}
+
+void ScalarConverter::fromDouble()
+{
+	if (theDouble <= 126 && theDouble >= 32)
+	{
+		theChar =  static_cast<char>(theDouble);
+		std::cout << "Char: '" << theChar << "'" << std::endl;
+	}
+	else if ((theDouble >= 0 && theDouble <= 31) || theDouble == 127)
+		std::cout << "Char: Non displayable" << std::endl;
+	else
+		std::cout << "Char: impossible" << std::endl;
+	if (theDouble > 2147483647.0 || theDouble < -2147483648.0)
+		std::cout << "Int: impossible" << std::endl;
+	else
+	{
+		theInt =  static_cast<int>(theDouble);
+		std::cout << "Int: " << theInt << std::endl;
+	}
+	if (abs(theDouble) > FLT_MAX)
+		std::cout << "Float: " << "inf"<< std::endl;
+	else
+	{
+		theFloat =  static_cast<float>(theDouble);
+		std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+	}
+		std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
+
+	std::cout << "Double: " << theDouble << std::endl;
 	return ;
 }
 
@@ -144,7 +174,16 @@ int ScalarConverter::checkFloat(long double temp)
 	if (abs(temp) > FLT_MAX)
 		return (-1);
 	type = TYPE_FLOAT;
-	theFloat = static_cast<int>(temp);
+	theFloat = static_cast<float>(temp);
+	return (type);
+}
+
+int ScalarConverter::checkDouble(long double temp)
+{
+	if (abs(temp) > DBL_MAX)
+		return (-1);
+	type = TYPE_DOUBLE;
+	theDouble = static_cast<double>(temp);
 	return (type);
 }
 
