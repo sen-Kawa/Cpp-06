@@ -1,7 +1,9 @@
 #ifndef SERIALIZER_CLASS_HPP
 # define SERIALIZER_CLASS_HPP
 
+#include <cstdint>
 #include <iostream>
+#include "Data.hpp"
 
 class Serializer
 {
@@ -14,7 +16,8 @@ class Serializer
 
 	public:
 
-		int	getSerializer(void) const;
+		static uintptr_t serialize(Data* ptr);
+		static Data* deserialize(uintptr_t raw);
 
 };
 
