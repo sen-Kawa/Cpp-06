@@ -1,6 +1,4 @@
 #include "../header/ScalarConverter.class.hpp"
-#include <cstdlib>
-#include <iomanip>
 
 int	ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
@@ -36,6 +34,10 @@ int ScalarConverter::convert(std::string toConvert)
 			fromChar();
 			break ;
 
+		case 1:
+			fromInt();
+			break ;
+
 		case 4:
 			printPseudos();
 			break ;
@@ -50,10 +52,16 @@ int ScalarConverter::parseString(std::string toConvert)
 		std::cerr << "Invalid empty argument." << std::endl;
 		return (-1);
 	}
-	else if (toConvert.length() == 1)
-		single(toConvert);
-	else
-		pseudoLiterals(toConvert);
+	else if (toConvert.length() == 1 && (single(toConvert) != -1))
+		return (type);
+	else if (pseudoLiterals(toConvert) == TYPE_PSEUDOS)
+		return (type);
+	
+	double	temp = strtod(toConvert.c_str(), NULL);
+
+	if (checkInt(temp) == TYPE_INT)
+		return (type);
+
 	return (0);
 }
 
@@ -66,30 +74,39 @@ void ScalarConverter::fromChar()
 	return ;
 }
 
-void ScalarConverter::toInt(std::string toConvert)
+void ScalarConverter::fromInt()
 {
-	int	i = atoi(toConvert.c_str());
-
-	if (i < INT_MAX && i > INT_MIN)
-		std::cout << "Int: " << static_cast<int>(i) << std::endl;
-	else
-		std::cout << "Int: " << "Non displayable" << std::endl;
+	theChar =  static_cast<int>(theInt);
+	theFloat =  static_cast<float>(theInt);
+	theDouble =  static_cast<double>(theInt);
+	printConversion();
 	return ;
 }
 
-void ScalarConverter::single(std::string toConvert)
+int ScalarConverter::checkInt(double temp)
+{
+	if (temp > INT_MAX || temp < INT_MIN)
+		return (-1);
+	type = TYPE_INT;
+	theInt = static_cast<int>(temp);
+	return (type);
+}
+
+int ScalarConverter::single(std::string toConvert)
 {
 	if (isdigit(*toConvert.c_str()))
 	{
 		type = TYPE_INT;
 		theInt = atoi(toConvert.c_str());
+		return (TYPE_INT);
 	}
 	else if (isprint(*toConvert.c_str()))
 	{
 		type = TYPE_CHAR;
 		theChar = toConvert[0];
+		return (TYPE_CHAR);
 	}
-	return ;
+	return (-1);
 }
 
 int ScalarConverter::pseudoLiterals(std::string toConvert)
@@ -110,6 +127,7 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 		theFloat = strtof(pseudoFloat[i].c_str(), NULL);
 		theDouble = strtod(pseudoDouble[i].c_str(), NULL);
 		type = TYPE_PSEUDOS;
+		return (1);
 	}
 	return (0);
 }
