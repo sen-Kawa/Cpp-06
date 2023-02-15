@@ -2,20 +2,11 @@
 #include <cerrno>
 #include <cmath>
 
-int	ScalarConverter::type = -1;
+int		ScalarConverter::type = -1;
 char	ScalarConverter::theChar = 'c';
 int		ScalarConverter::theInt = -1;
 float	ScalarConverter::theFloat = 0.0f;
 double	ScalarConverter::theDouble = 0.0;
-
-void ScalarConverter::printPseudos()
-{
-	std::cout << "Char: " << "impossible" << std::endl;
-	std::cout << "Int: " << "impossible" << std::endl;
-	std::cout << "Float: " << theFloat << "f" << std::endl;
-	std::cout << "Double: " << theDouble << std::endl;
-	return ;
-}
 
 void ScalarConverter::convert(std::string toConvert)
 {
@@ -66,7 +57,7 @@ int ScalarConverter::parseString(std::string toConvert)
 
 	double	temp = strtod(toConvert.c_str(), NULL);
 
-	if (temp == HUGE_VALL || temp == -HUGE_VALL)
+	if (temp == HUGE_VAL || temp == -HUGE_VAL)
 		return (-1);
 	if (checkDigit(temp, toConvert) == 1 || errno == ERANGE || errno == EDOM || errno == EILSEQ)
 		return (-1);
@@ -249,6 +240,15 @@ int ScalarConverter::pseudoLiterals(std::string toConvert)
 		return (TYPE_PSEUDOS);
 	}
 	return (0);
+}
+
+void ScalarConverter::printPseudos()
+{
+	std::cout << "Char: " << "impossible" << std::endl;
+	std::cout << "Int: " << "impossible" << std::endl;
+	std::cout << "Float: " << theFloat << "f" << std::endl;
+	std::cout << "Double: " << theDouble << std::endl;
+	return ;
 }
 
 ScalarConverter::ScalarConverter(void)
