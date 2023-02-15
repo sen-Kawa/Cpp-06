@@ -50,7 +50,7 @@ class ScalarConverter
 
 	public:
 
-		static int	convert(std::string toConvert);
+		static void	convert(std::string toConvert);
 
 };
 
