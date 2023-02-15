@@ -49,18 +49,24 @@ int ScalarConverter::convert(std::string toConvert)
 
 int ScalarConverter::parseString(std::string toConvert)
 {
-	long double	temp = strtod(toConvert.c_str(), NULL);
-
 	if (toConvert.empty() == true)
 	{
-		std::cerr << "Invalid empty argument." << std::endl;
+		std::cerr << "Invalid emtpy argument." << std::endl;
 		return (-1);
 	}
 	else if (toConvert.length() == 1 && (single(toConvert) != -1))
 		return (type);
 	else if (pseudoLiterals(toConvert) == TYPE_PSEUDOS)
 		return (type);
-	else if ((toConvert.find('.') == std::string::npos) && checkInt(temp) == TYPE_INT)
+
+	long double	temp = strtold(toConvert.c_str(), NULL);
+
+	if (temp == 0)
+	{
+		std::cerr << "Invalid argument." << std::endl;
+		return (-1);
+	}
+	if ((toConvert.find('.') == std::string::npos) && checkInt(temp) == TYPE_INT)
 		return (type);
 	else if ((toConvert.find('.') != std::string::npos) && (toConvert.find('f') != std::string::npos) && checkFloat(temp) == TYPE_FLOAT)
 		return (type);
@@ -154,8 +160,6 @@ void ScalarConverter::fromDouble()
 		theFloat =  static_cast<float>(theDouble);
 		std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
 	}
-		std::cout << "Float: " << std::fixed << std::setprecision(1) << theFloat << "f" << std::endl;
-
 	std::cout << "Double: " << theDouble << std::endl;
 	return ;
 }

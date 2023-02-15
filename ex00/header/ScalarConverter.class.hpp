@@ -2,6 +2,7 @@
 # define SCALARCONVERTER_CLASS_HPP
 
 #include <iostream>
+#include <cerrno>
 #include <string>
 #include <bitset>
 #include <cctype>
