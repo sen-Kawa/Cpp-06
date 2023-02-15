@@ -2,7 +2,7 @@ NAME = conversion
 
 CC = c++
 
-CFLAGS = -Wall -Wextra -Werror -std=c++98 
+CFLAGS = -Wall -Wextra -Wno-unused -Wconversion -Werror -std=c++98
 
 HEADER_DIR = ./header
 
