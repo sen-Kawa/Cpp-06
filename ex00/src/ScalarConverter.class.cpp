@@ -8,7 +8,7 @@ double	ScalarConverter::theDouble = 0.0;
 
 void ScalarConverter::printConversion()
 {
-	if (theChar == 0)
+	if (theChar != 0)
 		std::cout << "Char: Non displayable" << std::endl;
 	else
 		std::cout << "Char: '" << theChar << "'" << std::endl;
@@ -50,6 +50,8 @@ int ScalarConverter::convert(std::string toConvert)
 
 int ScalarConverter::parseString(std::string toConvert)
 {
+	double	temp = strtod(toConvert.c_str(), NULL);
+
 	if (toConvert.empty() == true)
 	{
 		std::cerr << "Invalid empty argument." << std::endl;
@@ -59,10 +61,7 @@ int ScalarConverter::parseString(std::string toConvert)
 		return (type);
 	else if (pseudoLiterals(toConvert) == TYPE_PSEUDOS)
 		return (type);
-	
-	double	temp = strtod(toConvert.c_str(), NULL);
-
-	if (checkInt(temp) == TYPE_INT)
+	else if ((toConvert.find('.') == std::string::npos) && checkInt(temp) == TYPE_INT)
 		return (type);
 
 	return (0);

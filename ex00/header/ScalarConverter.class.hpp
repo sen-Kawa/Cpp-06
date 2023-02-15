@@ -2,6 +2,8 @@
 # define SCALARCONVERTER_CLASS_HPP
 
 #include <iostream>
+#include <string>
+#include <bitset>
 #include <cctype>
 #include <cstdlib>
 #include <limits.h>
