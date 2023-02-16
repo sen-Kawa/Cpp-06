@@ -19,6 +19,8 @@ int main(void)
 
 	std::cout << "\nData member: " << obj->galaxyMorpholophy << std::endl;
 	std::cout << "Address: " << obj << std::endl;
+
+	delete obj;
 	return (0);
 }
 
