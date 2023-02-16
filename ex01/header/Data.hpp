@@ -5,7 +5,7 @@
 
 typedef struct data_t
 {
-	std::string	planet;
+	std::string	galaxyMorpholophy;
 } Data;
 
 #endif

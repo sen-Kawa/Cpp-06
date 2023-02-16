@@ -1,7 +1,7 @@
 #ifndef SERIALIZER_CLASS_HPP
 # define SERIALIZER_CLASS_HPP
 
-#include <cstdint>
+#include <stdint.h>
 #include <iostream>
 #include "Data.hpp"
 
