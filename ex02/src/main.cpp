@@ -8,33 +8,35 @@
 Base *generate(void)
 {
 	int	whichObject;
-	Base *base;
+	Base *p;
 
 	srand((int)time(NULL));
 	whichObject = rand() % 3 + 1;
 	switch (whichObject)
 	{
 		case 1:
-			base = new A();
+			p = new A();
 			std::cout << "Object A." << std::endl;
 			break ;
 
 		case 2:
-			base = new B();
+			p = new B();
 			std::cout << "Object B." << std::endl;
 			break ;
 
 		case 3:
-			base = new C();
+			p = new C();
 			std::cout << "Object C." << std::endl;
 			break ;
 
 		default:
-			base = NULL;
+			p = NULL;
 			std::cerr << "Error when instantiating." << std::endl;
 	}
-	return (base);
+	return (p);
 }
+
+void identify(Base *p)
 
 int main(void)
 {
