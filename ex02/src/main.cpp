@@ -69,33 +69,33 @@ void identify(Base &p)
 	{
 		A &a = dynamic_cast<A &>(p);
 		(void) a;
-		std::cout << CYAN << "Identified: " << DEF << "Object type A.";
+		std::cout << CYAN << "Identified: " << DEF << "Object type A." << std::endl;
 	}
 	catch (std::exception &bc)
 	{
-		std::cerr << RED << bc.what() << DEF;
+		std::cerr << RED << "Type A: "<< bc.what() << DEF << std::endl;
 	}
 	try
 	{
 		B &b = dynamic_cast<B &>(p);
 		(void) b;
-		std::cout << CYAN << "Identified: " << DEF << "Object type B.";
+		std::cout << CYAN << "Identified: " << DEF << "Object type B." << std::endl;
 	}
 	catch (std::exception &bc)
 	{
-		std::cerr << RED << bc.what() << DEF;
+		std::cerr << RED << "Type B: " << bc.what() << DEF << std::endl;
 	}
 	try
 	{
 		C &c = dynamic_cast<C &>(p);
 		(void) c;
-		std::cout << CYAN << "Identified: " << DEF << "Object type C.";
+		std::cout << CYAN << "Identified: " << DEF << "Object type C." << std::endl;
 	}
 	catch (std::exception &bc)
 	{
-		std::cerr << RED << bc.what() << DEF;
+		std::cerr << RED << "Type C: "<< bc.what() << DEF << std::endl;
 	}
-	std::cout  << std::endl << std::endl;
+	std::cout  << std::endl;
 	return ;
 }
 
@@ -105,5 +105,6 @@ int main(void)
 	Base *p = generate();
 	identify(p);
 	identify(*p);
+	delete p;
 	return (0);
 }
