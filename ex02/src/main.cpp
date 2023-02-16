@@ -12,6 +12,7 @@ Base *generate(void)
 
 	srand((int)time(NULL));
 	whichObject = rand() % 3 + 1;
+	std::cout << "Generating...\n" << std::endl;
 	switch (whichObject)
 	{
 		case 1:
@@ -41,11 +42,20 @@ void identify(Base *p)
 	A *a = dynamic_cast<A *>(p);
 	B *b = dynamic_cast<B *>(p);
 	C *c = dynamic_cast<C *>(p);
+	
+	std::cout << "Identifying...\n" << std::endl;
+	if (a != NULL)
+		std::cout << "Identified: Object type A." << std::endl;
+	if (b != NULL)
+		std::cout << "Identified: Object type B." << std::endl;
+	if (c != NULL)
+		std::cout << "Identified: Object type C." << std::endl;
 }
 
 int main(void)
 {
-	generate();
+	Base *p = generate();
+	identify(p);
 	return (0);
 }
 
