@@ -1,9 +1,9 @@
 # C++ Module 06
 ## Casts
 
-###ex00
+### ex00
 Static casts
-###ex01
+### ex01
 Reinterpret casts
-###ex02
+### ex02
 Dynamic casts
