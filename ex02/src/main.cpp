@@ -75,6 +75,26 @@ void identify(Base &p)
 	{
 		std::cerr << RED << bc.what() << DEF;
 	}
+	try
+	{
+		B &b = dynamic_cast<B &>(p);
+		(void) b;
+		std::cout << CYAN << "Identified: " << DEF << "Object type B.";
+	}
+	catch (std::exception &bc)
+	{
+		std::cerr << RED << bc.what() << DEF;
+	}
+	try
+	{
+		C &c = dynamic_cast<C &>(p);
+		(void) c;
+		std::cout << CYAN << "Identified: " << DEF << "Object type C.";
+	}
+	catch (std::exception &bc)
+	{
+		std::cerr << RED << bc.what() << DEF;
+	}
 	std::cout  << std::endl << std::endl;
 	return ;
 }
