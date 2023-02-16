@@ -5,8 +5,7 @@
 #include <cstdlib>
 #include <ctime>
 
-//Base *generate(void)
-void generate(void)
+Base *generate(void)
 {
 	int	whichObject;
 	Base *base;
@@ -34,6 +33,7 @@ void generate(void)
 			std::cerr << "Error when instantiating." << std::endl;
 	}
 	std::cout << whichObject << std::endl;
+	return (base);
 }
 
 int main(void)
