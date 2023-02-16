@@ -18,14 +18,17 @@ void generate(void)
 		case 1:
 			base = new A();
 			std::cout << "Object A." << std::endl;
+			break ;
 
 		case 2:
 			base = new B();
 			std::cout << "Object B." << std::endl;
+			break ;
 
 		case 3:
 			base = new C();
 			std::cout << "Object C." << std::endl;
+			break ;
 
 		default:
 			std::cerr << "Error when instantiating." << std::endl;
