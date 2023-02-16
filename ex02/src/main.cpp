@@ -5,6 +5,11 @@
 #include <cstdlib>
 #include <ctime>
 
+#define YELLOW "\033[2;33m"
+#define RED "\033[2;31m"
+#define CYAN "\033[2;36m"
+#define DEF "\033[0m"
+
 Base *generate(void)
 {
 	int	whichObject;
@@ -12,28 +17,29 @@ Base *generate(void)
 
 	srand((int)time(NULL));
 	whichObject = rand() % 3 + 1;
-	std::cout << "Generating...\n" << std::endl;
+	std::cout << YELLOW << ">> Generating...\n" << DEF << std::endl;
 	switch (whichObject)
 	{
 		case 1:
 			p = new A();
-			std::cout << "Object A." << std::endl;
+			std::cout << CYAN << "Generated: " << DEF << "Object type A.";
 			break ;
 
 		case 2:
 			p = new B();
-			std::cout << "Object B." << std::endl;
+			std::cout << CYAN << "Generated: " << DEF << "Object type B.";
 			break ;
 
 		case 3:
 			p = new C();
-			std::cout << "Object C." << std::endl;
+			std::cout << CYAN << "Generated: " << DEF << "Object type C.";
 			break ;
 
 		default:
 			p = NULL;
-			std::cerr << "Error when instantiating." << std::endl;
+			std::cerr << RED << "Error when instantiating." << DEF;
 	}
+	std::cout  << std::endl << std::endl;
 	return (p);
 }
 
@@ -43,17 +49,19 @@ void identify(Base *p)
 	B *b = dynamic_cast<B *>(p);
 	C *c = dynamic_cast<C *>(p);
 	
-	std::cout << "Identifying...\n" << std::endl;
+	std::cout << YELLOW << ">> Identifying...\n" << DEF << std::endl;
 	if (a != NULL)
-		std::cout << "Identified: Object type A." << std::endl;
+		std::cout << CYAN << "Identified: " << DEF << "Object type A.";
 	if (b != NULL)
-		std::cout << "Identified: Object type B." << std::endl;
+		std::cout << CYAN << "Identified: " << DEF << "Object type B.";
 	if (c != NULL)
-		std::cout << "Identified: Object type C." << std::endl;
+		std::cout << CYAN << "Identified: " << DEF << "Object type C.";
+	std::cout  << std::endl << std::endl;
 }
 
 int main(void)
 {
+	std::cout << CYAN << "Identify real type ex02\n" << DEF << std::endl;
 	Base *p = generate();
 	identify(p);
 	return (0);
