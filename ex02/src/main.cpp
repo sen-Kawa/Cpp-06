@@ -30,9 +30,9 @@ Base *generate(void)
 			break ;
 
 		default:
+			base = NULL;
 			std::cerr << "Error when instantiating." << std::endl;
 	}
-	std::cout << whichObject << std::endl;
 	return (base);
 }
 
