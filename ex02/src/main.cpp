@@ -3,6 +3,7 @@
 #include "../header/B.class.hpp"
 #include "../header/C.class.hpp"
 #include <cstdlib>
+#include <exception>
 #include <ctime>
 
 #define YELLOW "\033[2;33m"
@@ -49,7 +50,7 @@ void identify(Base *p)
 	B *b = dynamic_cast<B *>(p);
 	C *c = dynamic_cast<C *>(p);
 	
-	std::cout << YELLOW << ">> Identifying...\n" << DEF << std::endl;
+	std::cout << YELLOW << ">> Identifying from pointer...\n" << DEF << std::endl;
 	if (a != NULL)
 		std::cout << CYAN << "Identified: " << DEF << "Object type A.";
 	if (b != NULL)
@@ -57,6 +58,25 @@ void identify(Base *p)
 	if (c != NULL)
 		std::cout << CYAN << "Identified: " << DEF << "Object type C.";
 	std::cout  << std::endl << std::endl;
+	return ;
+}
+
+void identify(Base &p)
+{
+	std::cout << YELLOW << ">> Identifying from reference...\n" << DEF << std::endl;
+
+	try
+	{
+		A &a = dynamic_cast<A &>(p);
+		(void) a;
+		std::cout << CYAN << "Identified: " << DEF << "Object type A.";
+	}
+	catch (std::exception &bc)
+	{
+		std::cerr << RED << bc.what() << DEF;
+	}
+	std::cout  << std::endl << std::endl;
+	return ;
 }
 
 int main(void)
@@ -64,6 +84,6 @@ int main(void)
 	std::cout << CYAN << "Identify real type ex02\n" << DEF << std::endl;
 	Base *p = generate();
 	identify(p);
+	identify(*p);
 	return (0);
 }
-
